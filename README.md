@@ -9,7 +9,7 @@ Chease aims to make tweening (or easing) in Unity as easy as possible. Offering 
 
 Available easing methods:
 - Linear (no easing)
-- InBack OutBack, InOutBack
+- InBack, OutBack, InOutBack
 - InBounce, OutBounce, InOutBounce
 - InCircular, OutCircular, InOutCircular
 - InCubic, OutCubic, InOutCubic
