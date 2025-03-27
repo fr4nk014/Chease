@@ -1,4 +1,5 @@
-# Chease
+![CheaseTitle](https://github.com/user-attachments/assets/030e55e2-bd77-442a-909e-7e1c0ba5ff40)
+
 Easy to use solution for tweening in Unity.
 
 ![CheaseShowcase](https://github.com/user-attachments/assets/6e859586-36a5-4965-8538-2a7aca6c30fd)
