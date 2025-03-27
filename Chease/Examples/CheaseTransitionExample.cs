@@ -7,7 +7,7 @@ public class CheaseTransitionExample : MonoBehaviour
     [SerializeField] private Transform targetTransform;
 
     [Header("User Setting")]
-    [SerializeField] private CheaseTween.TransitionData userSetting = new(CheaseTween.PresetType.Position, Vector3.one, CheaseTween.EasingMode.OutBack, 1f, true);
+    [SerializeField] private CheaseTween.TransitionData userSetting = new(CheaseTween.TransformationType.Position, Vector3.one, CheaseTween.EasingMode.OutBack, 1f, 0f, true);
 
 
     float userTimeScale = 1f;
@@ -20,11 +20,11 @@ public class CheaseTransitionExample : MonoBehaviour
     private void RandomPosition()
     {
         // Giving settings as parameters, instead of settings
-        Vector3 randomPosition = 5f * Random.insideUnitSphere;
+        Vector3 randomPosition = 3f * Random.insideUnitSphere;
         CheaseTween.TweenTransform
         (
             targetTransform,
-            CheaseTween.PresetType.Position,
+            CheaseTween.TransformationType.Position,
             randomPosition,
             CheaseTween.EasingMode.InOutBack,
             1f
@@ -40,10 +40,11 @@ public class CheaseTransitionExample : MonoBehaviour
 
         // Giving settings as a new transition data
         CheaseTween.TransitionData transitionData = new CheaseTween.TransitionData(
-            CheaseTween.PresetType.LocalScale,
+            CheaseTween.TransformationType.LocalScale,
             randomScale,
             CheaseTween.EasingMode.OutElastic,
             1.5f,
+            0f,
             false
         );
 
@@ -60,10 +61,11 @@ public class CheaseTransitionExample : MonoBehaviour
 
         // Giving settings as a new transition data
         CheaseTween.TransitionData transitionData = new CheaseTween.TransitionData(
-            CheaseTween.PresetType.Rotation,
+            CheaseTween.TransformationType.Rotation,
             randomRotation,
             CheaseTween.EasingMode.InOutBack,
             1f,
+            0f,
             false
         );
 
@@ -80,6 +82,12 @@ public class CheaseTransitionExample : MonoBehaviour
         if (GUILayout.Button("Animate with Setting"))
         {
             UserSetting();
+        }
+        if (GUILayout.Button("Center"))
+        {
+            CheaseTween.TweenTransform(targetTransform, CheaseTween.TransformationType.Position, Vector3.zero, CheaseTween.EasingMode.InOutBack, 1f, 0f, false);
+            CheaseTween.TweenTransform(targetTransform, CheaseTween.TransformationType.LocalScale, Vector3.one, CheaseTween.EasingMode.OutElastic, 1f, 0f, false);
+            CheaseTween.TweenTransform(targetTransform, CheaseTween.TransformationType.Rotation, Vector3.zero, CheaseTween.EasingMode.InOutQuadratic, 1f, 0f, false);
         }
 
         GUILayout.Space(30f);

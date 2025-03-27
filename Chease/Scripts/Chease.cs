@@ -8,22 +8,30 @@ namespace Chease
         [Serializable]
         public class TransitionData
         {
-            public PresetType _Type;
+            public TransformationType _Type;
             public Vector3 _EndVector;
             public EasingMode _EasingType;
             public float _TransitionDuration;
+            public float _Delay;
             public bool _UnscaledTime;
 
-            public TransitionData(PresetType _type, Vector3 _endvector, EasingMode _easingtype, float _duration, bool _unscaledTime)
+            /// <summary>
+            /// Transition settings for automated transform manipulation.
+            /// </summary>
+            public TransitionData(TransformationType _type, Vector3 _endvector, EasingMode _easingtype, float _duration, float _delay, bool _unscaledTime)
             {
                 _Type = _type;
                 _EndVector = _endvector;
                 _EasingType = _easingtype;
                 _TransitionDuration = _duration;
+                _Delay = _delay;
                 _UnscaledTime = _unscaledTime;
             }
         }
 
+        /// <summary>
+        /// Method of easing.
+        /// </summary>
         public enum EasingMode
         {
             Linear,
@@ -39,7 +47,10 @@ namespace Chease
             InSine, OutSine, InOutSine
         }
 
-        public enum PresetType
+        /// <summary>
+        /// Part of transform to manipulate.
+        /// </summary>
+        public enum TransformationType
         {
             Position,
             Rotation,
@@ -48,16 +59,16 @@ namespace Chease
             LocalScale
         }
 
-        public static void TweenTransform(Transform targetTransform, PresetType type, Vector3 end_vector, EasingMode easing_mode, float transition_time, bool unscaled_time = false)
+        public static void TweenTransform(Transform targetTransform, TransformationType type, Vector3 end_vector, EasingMode easing_mode, float transition_time, float delay = 0f, bool unscaled_time = false)
         {
-            AnimateTransformTween(type, targetTransform, end_vector, easing_mode, transition_time, unscaled_time);
+            AnimateTransformTween(type, targetTransform, end_vector, easing_mode, transition_time, delay, unscaled_time);
         }
         public static void TweenTransform(Transform targetTransform, TransitionData settings)
         {
-            AnimateTransformTween(settings._Type, targetTransform, settings._EndVector, settings._EasingType, settings._TransitionDuration, settings._UnscaledTime);
+            AnimateTransformTween(settings._Type, targetTransform, settings._EndVector, settings._EasingType, settings._TransitionDuration, settings._Delay, settings._UnscaledTime);
         }
 
-        private static void AnimateTransformTween(PresetType type, Transform targetTransform, Vector3 end_position, EasingMode easing_mode, float transition_time, bool unscaled_time = false)
+        private static void AnimateTransformTween(TransformationType type, Transform targetTransform, Vector3 end_position, EasingMode easing_mode, float transition_time, float delay, bool unscaled_time = false)
         {
             if (targetTransform == null)
             {
@@ -65,13 +76,9 @@ namespace Chease
                 return;
             }
             GameObject g = targetTransform.gameObject;
-            CheaseAnimator[] old_movers = targetTransform.GetComponents<CheaseAnimator>();
-            foreach (CheaseAnimator m in old_movers)
-            {
-                if (m.PresetType == type) GameObject.Destroy(m);
-            }
+
             CheaseAnimator mover = g.AddComponent<CheaseAnimator>();
-            mover.InitAnimation(type, end_position, easing_mode, transition_time, unscaled_time);
+            mover.InitAnimation(type, end_position, easing_mode, transition_time, delay, unscaled_time);
         }
 
         public static Func<float, float> GetEasingFunction(EasingMode mode)

@@ -272,10 +272,10 @@ MonoBehaviour:
   targetTransform: {fileID: 2068173306}
   userSetting:
     _Type: 0
-    _EndVector: {x: 1, y: 1, z: 1}
+    _EndVector: {x: 0, y: 0, z: 0}
     _EasingType: 5
     _TransitionDuration: 1
-    _UnscaledTime: 1
+    _UnscaledTime: 0
 --- !u!4 &795611697
 Transform:
   m_ObjectHideFlags: 0
