@@ -42,7 +42,7 @@ CheaseTween.TweenTransform(targetTransform, settings);
 ```
 
 
-There are 2 options for the automated movement.
+There are 2 methods for the automated movement.
 
 #### Method 1: TransitionData class
 ```cs
@@ -53,6 +53,7 @@ CheaseTween.TransitionData transitionData = new CheaseTween.TransitionData
 	new Vector3(1f, 2f, 3f),
 	CheaseTween.EasingMode.OutElastic,
 	1.5f,
+	0f,
 	false
 );
 
@@ -65,7 +66,7 @@ TransitionData is serialized so you can also set the settings in the inspector.
 
 #### Method 2: Directly inputting the settings
 ```cs
-CheaseTween.TweenTransform(targetTransform, CheaseTween.PresetType.Position, randomPosition, CheaseTween.EasingMode.InOutBack, 1f, false);
+CheaseTween.TweenTransform(targetTransform, CheaseTween.PresetType.Position, new Vector3(1f, 2f, 3f), CheaseTween.EasingMode.InOutBack, 1f, 0f, false);
 ```
 
 ### Using functions manually
